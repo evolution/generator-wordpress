@@ -279,7 +279,7 @@ WordpressGenerator.prototype.setupProvisioning = function() {
   this.template('genesis/ansible/ansible_hosts',    'genesis/ansible/ansible_hosts');
   this.template('genesis/ansible/playbook.yml',   'genesis/ansible/playbook.yml');
 
-  fs.chmodSync(path.join(this.env.cwd, 'genesis', 'provision'), 0744);
+  fs.chmodSync(path.join(this.env.cwd, 'genesis', 'provision'), '744');
 };
 
 module.exports = WordpressGenerator;
