@@ -10,6 +10,7 @@ var chalk   = require('chalk');
 var crypto  = require('crypto');
 var request = require('request');
 var keygen  = require('ssh-keygen');
+var fs      = require('fs');
 
 
 var WordpressGenerator = function(args, options, config) {
@@ -23,7 +24,11 @@ var WordpressGenerator = function(args, options, config) {
       bower:        true,
       npm:          false,
       skipInstall:  options['skip-install'],
-      skipMessage:  true
+      skipMessage:  true,
+      callback:     function() {
+        this.log.write();
+        this.log.ok('All done! Run ' + chalk.yellow('vagrant up') + ' to get started!');
+      }.bind(this)
     });
   });
 };
@@ -264,5 +269,17 @@ WordpressGenerator.prototype.createSshKeys = function() {
   }, done);
 };
 
+WordpressGenerator.prototype.setupProvisioning = function() {
+  this.log.info('Creating provisioning scripts...');
+
+  this.mkdir(path.join(this.env.cwd, 'genesis', 'ansible'));
+
+  this.template('genesis/provision',              'genesis/provision');
+  this.template('genesis/ansible/ansible.cfg',    'genesis/ansible/ansible.cfg');
+  this.template('genesis/ansible/ansible_hosts',    'genesis/ansible/ansible_hosts');
+  this.template('genesis/ansible/playbook.yml',   'genesis/ansible/playbook.yml');
+
+  fs.chmodSync(path.join(this.env.cwd, 'genesis', 'provision'), 0744);
+};
 
 module.exports = WordpressGenerator;

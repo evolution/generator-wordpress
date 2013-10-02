@@ -34,6 +34,7 @@ nbproject
 .idea
 .vagrant
 _notes
+bower_components
 
 # Application files to ignore
 error_log

@@ -1,0 +1,1 @@
+- include: ../../bower_components/genesis-wordpress/ansible/playbook.yml

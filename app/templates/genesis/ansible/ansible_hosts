@@ -1,0 +1,8 @@
+[local]
+local.<%= props.domain %>
+
+[staging]
+staging.<%= props.domain %>
+
+[production]
+production.<%= props.domain %>
