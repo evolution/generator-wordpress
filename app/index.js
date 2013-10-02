@@ -45,12 +45,58 @@ WordpressGenerator.prototype.welcome = function() {
   this.log.writeln(message);
 };
 
+WordpressGenerator.prototype.promptForDomain = function() {
+  this.prompts.push({
+    required: true,
+    type:     'text',
+    name:     'domain',
+    message:  'Site domain (e.g. mysite.com)',
+    default:  path.basename(this.env.cwd),
+    validate:  function(input) {
+      if (/^[\w-]+\.\w+$/.test(input)) {
+        return true;
+      } else if (!input) {
+        return "Domain is required";
+      }
+
+      return chalk.yellow(input) + ' does not match example';
+    }
+  });
+};
+
+WordpressGenerator.prototype.promptForVersion = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'version',
+    message:  'Site version',
+    default:  '1.0.0'
+  });
+};
+
+WordpressGenerator.prototype.promptForGenesis = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'genesis',
+    message:  'Genesis library version',
+    default:  '0.1.0'
+  });
+};
+
 WordpressGenerator.prototype.promptForWordPress = function() {
   this.prompts.push({
     type:     'text',
     name:     'wordpress',
     message:  'WordPress version',
     default:  '3.6.1'
+  });
+};
+
+WordpressGenerator.prototype.promptForWeb = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'web',
+    message:  'WordPress directory',
+    default:  'web'
   });
 };
 
@@ -88,61 +134,6 @@ WordpressGenerator.prototype.promptForDatabase = function() {
 
     done();
   }.bind(this));
-};
-
-WordpressGenerator.prototype.promptForGenesis = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'genesis',
-    message:  'Genesis version',
-    default:  '0.1.0'
-  });
-};
-
-WordpressGenerator.prototype.promptForWeb = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'web',
-    message:  'WordPress directory',
-    default:  'web'
-  });
-};
-
-WordpressGenerator.prototype.promptForVersion = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'version',
-    message:  'Project version',
-    default:  '1.0.0'
-  });
-};
-
-WordpressGenerator.prototype.promptForVersion = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'version',
-    message:  'Project version',
-    default:  '1.0.0'
-  });
-};
-
-WordpressGenerator.prototype.promptForDomain = function() {
-  this.prompts.push({
-    required: true,
-    type:     'text',
-    name:     'domain',
-    message:  'Domain (e.g. mysite.com)',
-    default:  path.basename(this.env.cwd),
-    validate:  function(input) {
-      if (/^[\w-]+\.\w+$/.test(input)) {
-        return true;
-      } else if (!input) {
-        return "Domain is required";
-      }
-
-      return chalk.yellow(input) + ' does not match example';
-    }
-  });
 };
 
 WordpressGenerator.prototype.promptForIp = function() {
@@ -278,7 +269,9 @@ WordpressGenerator.prototype.setupProvisioning = function() {
   this.template('genesis/ansible/ansible.cfg',    'genesis/ansible/ansible.cfg');
   this.template('genesis/ansible/ansible_hosts',    'genesis/ansible/ansible_hosts');
   this.template('genesis/ansible/playbook.yml',   'genesis/ansible/playbook.yml');
+};
 
+WordpressGenerator.prototype.fixPermissions = function() {
   fs.chmodSync(path.join(this.env.cwd, 'genesis', 'provision'), '744');
 };
 
