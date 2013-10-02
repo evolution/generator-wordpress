@@ -1,0 +1,47 @@
+{
+  "name": "generator-wordpress",
+  "version": "0.1.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/genesis/generator-wordpress",
+  "bugs": "https://github.com/genesis/generator-wordpress/issues",
+  "author": {
+    "name": "Eric Clemmons",
+    "email": "eric@smarterspam.com",
+    "url": "https://github.com/ericclemmons"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/genesis/generator-wordpress.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.13.0",
+    "github-latest": "~0.1.2",
+    "async": "~0.2.9",
+    "wrench": "~1.5.1",
+    "chalk": "~0.2.1",
+    "ssh-keygen": "~0.2.1",
+    "request": "~2.27.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0-rc.1"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

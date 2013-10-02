@@ -1,0 +1,268 @@
+'use strict';
+
+var util    = require('util');
+var path    = require('path');
+var yeoman  = require('yeoman-generator');
+var latest  = require('github-latest');
+var wrench  = require('wrench');
+var async   = require('async');
+var chalk   = require('chalk');
+var crypto  = require('crypto');
+var request = require('request');
+var keygen  = require('ssh-keygen');
+
+
+var WordpressGenerator = function(args, options, config) {
+  yeoman.generators.Base.apply(this, arguments);
+
+  this.pkg      = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  this.prompts  = [];
+
+  this.on('end', function() {
+    this.installDependencies({
+      bower:        true,
+      npm:          false,
+      skipInstall:  options['skip-install'],
+      skipMessage:  true
+    });
+  });
+};
+
+util.inherits(WordpressGenerator, yeoman.generators.Base);
+
+WordpressGenerator.prototype.welcome = function() {
+  var message = this.readFileAsString(path.join(__dirname, 'welcome.txt'));
+
+  message = message.replace(/./g, function(match) {
+    return /\w/.test(match) ? chalk.yellow(match) : chalk.cyan(match);
+  });
+
+  this.log.writeln(message);
+};
+
+WordpressGenerator.prototype.promptForWordPress = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'wordpress',
+    message:  'WordPress version',
+    default:  '3.6.1'
+  });
+};
+
+WordpressGenerator.prototype.promptForDatabase = function() {
+  var done = this.async();
+
+  crypto.randomBytes(12, function(err, buffer) {
+    this.prompts.push({
+      type:     'text',
+      name:     'DB_NAME',
+      message:  'Database name',
+      default:  'wordpress'
+    });
+
+    this.prompts.push({
+      type:     'text',
+      name:     'DB_USER',
+      message:  'Database user',
+      default:  'wordpress'
+    });
+
+    this.prompts.push({
+      type:     'text',
+      name:     'DB_PASSWORD',
+      message:  'Database password',
+      default:  buffer.toString('base64')
+    });
+
+    this.prompts.push({
+      type:     'text',
+      name:     'DB_HOST',
+      message:  'Database host',
+      default:  'localhost'
+    });
+
+    done();
+  }.bind(this));
+};
+
+WordpressGenerator.prototype.promptForGenesis = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'genesis',
+    message:  'Genesis version',
+    default:  '0.1.0'
+  });
+};
+
+WordpressGenerator.prototype.promptForWeb = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'web',
+    message:  'WordPress directory',
+    default:  'web'
+  });
+};
+
+WordpressGenerator.prototype.promptForVersion = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'version',
+    message:  'Project version',
+    default:  '1.0.0'
+  });
+};
+
+WordpressGenerator.prototype.promptForVersion = function() {
+  this.prompts.push({
+    type:     'text',
+    name:     'version',
+    message:  'Project version',
+    default:  '1.0.0'
+  });
+};
+
+WordpressGenerator.prototype.promptForDomain = function() {
+  this.prompts.push({
+    required: true,
+    type:     'text',
+    name:     'domain',
+    message:  'Domain (e.g. mysite.com)',
+    default:  path.basename(this.env.cwd),
+    validate:  function(input) {
+      if (/^[\w-]+\.\w+$/.test(input)) {
+        return true;
+      } else if (!input) {
+        return "Domain is required";
+      }
+
+      return chalk.yellow(input) + ' does not match example';
+    }
+  });
+};
+
+WordpressGenerator.prototype.promptForIp = function() {
+  // Private IP blocks
+  var blocks = [
+    ['10.0.0.0',    '10.255.255.255'],
+    ['172.16.0.0',  '172.31.255.255'],
+    ['192.168.0.0', '192.168.255.255']
+  ];
+
+  // Long IP ranges
+  var ranges = blocks.map(function(block) {
+    return block.map(function(ip) {
+      var parts = ip.split('.');
+
+      return parts[0] << 24 | parts[1] << 16 | parts[2] << 8 | parts[3] >>> 0;
+    });
+  });
+
+  // Randomize IP addresses
+  var ips = ranges.map(function(range) {
+    return Math.random() * (range[1] - range[0]) + range[0];
+  }).map(function(ip) {
+    return [
+      (ip & (0xff << 24)) >>> 24,
+      (ip & (0xff << 16)) >>> 16,
+      (ip & (0xff << 8)) >>> 8,
+      (ip & (0xff << 0)) >>> 0
+    ].join('.');
+  });
+
+  this.prompts.push({
+    required: true,
+    type:     'list',
+    name:     'ip',
+    message:  'Vagrant IP',
+    pattern:  /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
+    choices:  ips
+  });
+};
+
+WordpressGenerator.prototype.ask = function() {
+  var done = this.async();
+
+  this.prompt(this.prompts, function(props) {
+    this.props = props;
+
+    done();
+  }.bind(this));
+};
+
+WordpressGenerator.prototype.ready = function() {
+  this.log.write('\n');
+  this.log.info(chalk.green('Here we go!'));
+};
+
+WordpressGenerator.prototype.writeProjectFiles = function() {
+  this.log.info('Writing project files...');
+
+  this.template('.gitignore',   '.gitignore');
+  this.template('bower.json',   'bower.json');
+  this.template('Capfile',      'Capfile');
+  this.template('editorconfig', '.editorconfig');
+  this.template('README.md',    'README.md');
+  this.template('Vagrantfile',  'Vagrantfile');
+};
+
+WordpressGenerator.prototype.writeWordPress = function() {
+  var done = this.async();
+
+  this.log.info('Downloading WordPress...');
+
+  this.remote('wordpress', 'wordpress', this.props.wordpress, function(err, remote) {
+    this.log.info('Writing WordPress to ' + chalk.yellow(this.props.web));
+
+    wrench.copyDirSyncRecursive(remote.cachePath, this.props.web, {
+      forceDelete: true
+    });
+
+    done();
+  }.bind(this));
+};
+
+WordpressGenerator.prototype.writeWeb = function() {
+  this.log.info('Writing ' + chalk.yellow(this.props.web) + ' files...');
+
+  this.template('web/.htaccess',      path.join(this.props.web, '.htaccess'));
+  this.template('web/no_robots.txt',  path.join(this.props.web, 'no_robots.txt'));
+  this.template('web/robots.txt',     path.join(this.props.web, 'robots.txt'));
+};
+
+WordpressGenerator.prototype.fetchSalts = function() {
+  var done = this.async();
+
+  request('https://api.wordpress.org/secret-key/1.1/salt/', function(err, response, salts) {
+    if (err) {
+      throw err;
+    }
+
+    this.props.salts = salts;
+    done();
+  }.bind(this));
+};
+
+WordpressGenerator.prototype.setupWordPressConfig = function() {
+  this.log.info('Configuring ' + chalk.yellow('wp-config.php'));
+
+  this.wpConfigFile = this.readFileAsString(path.join(this.env.cwd, this.props.web, 'wp-config-sample.php'));
+  this.template('web/wp-config.php', path.join(this.props.web, 'wp-config.php'));
+};
+
+WordpressGenerator.prototype.createSshKeys = function() {
+  var done      = this.async();
+  var location  = path.join(this.env.cwd, 'genesis', 'ssh', 'id_rsa');
+
+  this.log.info('Creating SSH keys...');
+
+  this.mkdir(path.dirname(location));
+
+  keygen({
+    location: location,
+    comment:  'deploy@' + this.props.domain,
+    read: false
+  }, done);
+};
+
+
+module.exports = WordpressGenerator;

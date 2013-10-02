@@ -1,0 +1,8 @@
+{
+  "name": "<%= props.domain %>",
+  "version": "<%= props.version %>",
+  "dependencies": {
+    "genesis-wordpress": "git@github.com:genesis/wordpress.git#<%= props.genesis %>"
+  }
+}
+

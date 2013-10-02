@@ -1,0 +1,10 @@
+require 'rubygems'
+
+# Load Capistrano
+load 'deploy'
+
+# Load Genesis WordPress' recipes
+Dir['bower_components/genesis-wordpress/lib/*.rb'].each { |recipe| load(recipe) }
+
+# Load project's recipes
+load 'genesis/deploy'

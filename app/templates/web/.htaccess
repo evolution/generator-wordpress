@@ -1,0 +1,4 @@
+# Prevent spidering of non-canonical URLs,
+# such as `[*.]staging.*` and `production.*`.
+RewriteCond %{HTTP_HOST} !^(www|local)\.
+RewriteRule ^robots.txt$ no_robots.txt [L]
