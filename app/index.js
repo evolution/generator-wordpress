@@ -64,15 +64,6 @@ WordpressGenerator.prototype.promptForDomain = function() {
   });
 };
 
-WordpressGenerator.prototype.promptForVersion = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'version',
-    message:  'Site version',
-    default:  '1.0.0'
-  });
-};
-
 WordpressGenerator.prototype.promptForGenesis = function() {
   this.prompts.push({
     type:     'text',
