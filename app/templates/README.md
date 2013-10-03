@@ -1,4 +1,4 @@
-# <%= props.domain %>
+# <%= props.name %>
 
 > Powered by [Genesis WordPress][genesis-wordpress]
 

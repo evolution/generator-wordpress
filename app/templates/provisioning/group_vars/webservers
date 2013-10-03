@@ -1,5 +1,5 @@
 ---
-project_name: <%= props.domain %>
+domain:       <%= props.domain %>
 mysql:
   name:       <%= props.DB_NAME %>
   user:       <%= props.DB_USER %>

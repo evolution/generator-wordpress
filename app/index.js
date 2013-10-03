@@ -45,7 +45,7 @@ WordpressGenerator.prototype.welcome = function() {
   this.log.writeln(message);
 };
 
-WordpressGenerator.prototype.promptForDomain = function() {
+WordpressGenerator.prototype.promptForName = function() {
   var existing = function() {
     try {
       var bower = JSON.parse(this.readFileAsString(path.join(this.env.cwd, 'bower.json')));
@@ -57,8 +57,8 @@ WordpressGenerator.prototype.promptForDomain = function() {
   this.prompts.push({
     required: true,
     type:     'text',
-    name:     'domain',
-    message:  'Site domain (e.g. mysite.com)',
+    name:     'name',
+    message:  'Site name (e.g. MySite.com)',
     default:  function() {
       return existing() || path.basename(this.env.cwd);
     }.bind(this),
@@ -66,7 +66,7 @@ WordpressGenerator.prototype.promptForDomain = function() {
       if (/^[\w-]+\.\w+$/.test(input)) {
         return true;
       } else if (!input) {
-        return "Domain is required";
+        return "Name is required";
       }
 
       return chalk.yellow(input) + ' does not match example';
@@ -219,6 +219,8 @@ WordpressGenerator.prototype.ask = function() {
 WordpressGenerator.prototype.ready = function() {
   this.log.write('\n');
   this.log.info(chalk.green('Here we go!'));
+
+  this.props.domain = this.props.name.toLowerCase();
 };
 
 WordpressGenerator.prototype.writeProjectFiles = function() {
