@@ -1,4 +1,12 @@
+<?php
+
+/** Include Genesis to use with WordPress */
+require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Genesis.php');
+
 <%= wpConfigFile
+  // Already started PHP
+  .replace('<?php', '')
+
   // Replace DB_*
   .replace('database_name_here',  props.DB_NAME)
   .replace('username_here',       props.DB_USER)
@@ -11,9 +19,7 @@
   // Replace salts
   .replace(/define\('AUTH_KEY'[\s\S]+'put your unique phrase here'\);/, props.salts)
 %>
-/** Sets up WordPress to work with Genesis */
-require_once(ABSPATH . '/../bower_components/genesis-wordpress/src/Genesis.php');
 
 if (Genesis::isDebug()) {
-  Geneis::rewriteUrls();
+  Genesis::rewriteUrls();
 }
