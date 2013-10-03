@@ -165,6 +165,14 @@ WordpressGenerator.prototype.promptForIp = function() {
     ].join('.');
   });
 
+  try {
+    var vagrant = this.readFileAsString('Vagrantfile').match(/ip:\s['"]([\d\.]+)['"]/);
+
+    if (vagrant.length) {
+      ips.unshift(vagrant[1]);
+    }
+  } catch(e) {}
+
   this.prompts.push({
     required: true,
     type:     'list',
