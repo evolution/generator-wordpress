@@ -92,35 +92,44 @@ WordpressGenerator.prototype.promptForWeb = function() {
 };
 
 WordpressGenerator.prototype.promptForDatabase = function() {
-  var done = this.async();
+  var done      = this.async();
+  var existing  = function(web, constant) {
+    try {
+      var config = this.readFileAsString(path.join(web, 'wp-config.php'));
+      var regex   = new RegExp(constant + '[\'"],\\s*[\'"]([^\'"]+)');
+      var matches = regex.exec(config);
+
+      return matches && matches[1];
+    } catch(e) {}
+  }.bind(this);
 
   crypto.randomBytes(12, function(err, buffer) {
     this.prompts.push({
       type:     'text',
       name:     'DB_NAME',
       message:  'Database name',
-      default:  'wordpress'
+      default:  function(answers) { return existing(answers.web, 'DB_NAME') || 'wordpress'; }
     });
 
     this.prompts.push({
       type:     'text',
       name:     'DB_USER',
       message:  'Database user',
-      default:  'wordpress'
+      default:  function(answers) { return existing(answers.web, 'DB_USER') || 'wordpress'; }
     });
 
     this.prompts.push({
       type:     'text',
       name:     'DB_PASSWORD',
       message:  'Database password',
-      default:  buffer.toString('base64')
+      default:  function(answers) { return existing(answers.web, 'DB_PASSWORD') || buffer.toString('base64'); }
     });
 
     this.prompts.push({
       type:     'text',
       name:     'DB_HOST',
       message:  'Database host',
-      default:  'localhost'
+      default:  function(answers) { return existing(answers.web, 'DB_HOST') || 'localhost'; }
     });
 
     done();
