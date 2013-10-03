@@ -9,6 +9,11 @@ Vagrant.configure("2") do |config|
   config.vm.box       = "precise64"
   config.vm.box_url   = "http://files.vagrantup.com/precise64.box"
 
+  # Configure 1GB (1024MB) of memory
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 1024]
+  end
+
   config.vm.define :local do |box|
     box.vm.hostname = "local.<%= props.domain %>"
 
