@@ -73,21 +73,34 @@ WordpressGenerator.prototype.promptForGenesis = function() {
   });
 };
 
-WordpressGenerator.prototype.promptForWordPress = function() {
-  this.prompts.push({
-    type:     'text',
-    name:     'wordpress',
-    message:  'WordPress version',
-    default:  '3.6.1'
-  });
-};
-
 WordpressGenerator.prototype.promptForWeb = function() {
   this.prompts.push({
     type:     'text',
     name:     'web',
     message:  'WordPress directory',
     default:  'web'
+  });
+};
+
+WordpressGenerator.prototype.promptForWordPress = function() {
+  var existing = function(web) {
+    try {
+      var file    = this.readFileAsString(path.join(web, 'wp-includes', 'version.php'));
+      var version = file.match(/\$wp_version\s=\s['"]([^'"]+)/);
+
+      if (version.length) {
+        return version[1];
+      }
+    } catch(e) {}
+  }.bind(this);
+
+  this.prompts.push({
+    type:     'text',
+    name:     'wordpress',
+    message:  'WordPress version',
+    default:  function(answers) {
+      return existing(answers.web) || '3.6.1';
+    }
   });
 };
 
