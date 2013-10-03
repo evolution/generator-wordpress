@@ -71,7 +71,7 @@ WordpressGenerator.prototype.promptForDomain = function() {
     type:     'text',
     name:     'domain',
     message:  'Domain name (e.g. mysite.com)',
-    default:  path.basename(this.env.cwd),
+    default:  path.basename(this.env.cwd).toLowerCase(),
     validate: function(input) {
       if (/^[\w-]+\.\w+$/.test(input)) {
         return true;
