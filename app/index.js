@@ -58,18 +58,28 @@ WordpressGenerator.prototype.promptForName = function() {
     required: true,
     type:     'text',
     name:     'name',
-    message:  'Site name (e.g. MySite.com)',
+    message:  'Repository name (e.g. MySite)',
     default:  function() {
       return existing() || path.basename(this.env.cwd);
-    }.bind(this),
-    validate:  function(input) {
+    }.bind(this)
+  });
+};
+
+WordpressGenerator.prototype.promptForDomain = function() {
+  this.prompts.push({
+    required: true,
+    type:     'text',
+    name:     'domain',
+    message:  'Domain name (e.g. mysite.com)',
+    default:  path.basename(this.env.cwd),
+    validate: function(input) {
       if (/^[\w-]+\.\w+$/.test(input)) {
         return true;
       } else if (!input) {
-        return "Name is required";
+        return "Domain is required";
       }
 
-      return chalk.yellow(input) + ' does not match example';
+      return chalk.yellow(input) + ' does not match the example';
     }
   });
 };
@@ -219,8 +229,6 @@ WordpressGenerator.prototype.ask = function() {
 WordpressGenerator.prototype.ready = function() {
   this.log.write('\n');
   this.log.info(chalk.green('Here we go!'));
-
-  this.props.domain = this.props.name.toLowerCase();
 };
 
 WordpressGenerator.prototype.writeProjectFiles = function() {
