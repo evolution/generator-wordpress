@@ -46,12 +46,22 @@ WordpressGenerator.prototype.welcome = function() {
 };
 
 WordpressGenerator.prototype.promptForDomain = function() {
+  var existing = function() {
+    try {
+      var bower = JSON.parse(this.readFileAsString(path.join(this.env.cwd, 'bower.json')));
+
+      return bower.name;
+    } catch(e) {};
+  }.bind(this);
+
   this.prompts.push({
     required: true,
     type:     'text',
     name:     'domain',
     message:  'Site domain (e.g. mysite.com)',
-    default:  path.basename(this.env.cwd),
+    default:  function() {
+      return existing() || path.basename(this.env.cwd);
+    }.bind(this),
     validate:  function(input) {
       if (/^[\w-]+\.\w+$/.test(input)) {
         return true;
