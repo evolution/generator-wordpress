@@ -87,7 +87,7 @@ WordpressGenerator.prototype.promptForWordPress = function() {
     type:     'text',
     name:     'wordpress',
     message:  'WordPress version',
-    default:  '~3.6.1'
+    default:  '3.6.1'
   });
 };
 
@@ -245,9 +245,24 @@ WordpressGenerator.prototype.setupWordPressConfig = function() {
   this.template('web/wp-config.php', path.join(this.props.web, 'wp-config.php'));
 };
 
+WordpressGenerator.prototype.setupProvisioning = function() {
+  this.log.info('Creating provisioning scripts...');
+
+  this.mkdir(path.join(this.env.cwd, 'bin'));
+  this.template('bin/provision', 'bin/provision');
+
+  this.mkdir(path.join(this.env.cwd, 'provisioning'));
+  this.template('provisioning/local', 'provisioning/local');
+  this.template('provisioning/localhost', 'provisioning/localhost');
+  this.template('provisioning/playbook.yml', 'provisioning/playbook.yml');
+
+  this.mkdir(path.join(this.env.cwd, 'provisioning', 'group_vars'));
+  this.template('provisioning/group_vars/webservers', 'provisioning/group_vars/webservers');
+};
+
 WordpressGenerator.prototype.createSshKeys = function() {
   var done      = this.async();
-  var location  = path.join(this.env.cwd, 'genesis', 'ssh', 'id_rsa');
+  var location  = path.join(this.env.cwd, 'provisioning', 'files', 'ssh', 'id_rsa');
 
   this.log.info('Creating SSH keys...');
 
@@ -260,19 +275,8 @@ WordpressGenerator.prototype.createSshKeys = function() {
   }, done);
 };
 
-WordpressGenerator.prototype.setupProvisioning = function() {
-  this.log.info('Creating provisioning scripts...');
-
-  this.mkdir(path.join(this.env.cwd, 'genesis', 'ansible'));
-
-  this.template('genesis/provision',              'genesis/provision');
-  this.template('genesis/ansible/ansible.cfg',    'genesis/ansible/ansible.cfg');
-  this.template('genesis/ansible/ansible_hosts',    'genesis/ansible/ansible_hosts');
-  this.template('genesis/ansible/playbook.yml',   'genesis/ansible/playbook.yml');
-};
-
 WordpressGenerator.prototype.fixPermissions = function() {
-  fs.chmodSync(path.join(this.env.cwd, 'genesis', 'provision'), '744');
+  fs.chmodSync(path.join(this.env.cwd, 'bin', 'provision'), '744');
 };
 
 module.exports = WordpressGenerator;

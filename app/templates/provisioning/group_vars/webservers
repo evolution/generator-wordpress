@@ -1,0 +1,7 @@
+---
+project_name: <%= props.domain %>
+mysql:
+  name:       <%= props.DB_NAME %>
+  user:       <%= props.DB_USER %>
+  password:   <%= props.DB_PASSWORD %>
+  host:       <%= props.DB_HOST %>

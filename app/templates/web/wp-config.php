@@ -2,7 +2,6 @@
 
 /** Include Genesis to use with WordPress */
 require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Genesis.php');
-
 <%= wpConfigFile
   // Already started PHP
   .replace('<?php', '')
