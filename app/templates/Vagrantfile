@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
 
     # Provision local.<%= props.domain %>
     box.vm.provision :shell do |shell|
-      shell.inline = "/vagrant/genesis/provision"
+      shell.inline = "/vagrant/bin/provision"
     end
   end
 
