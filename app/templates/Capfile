@@ -6,5 +6,5 @@ load 'deploy'
 # Load Genesis WordPress' recipes
 Dir['bower_components/genesis-wordpress/deployment/*.rb'].each { |recipe| load(recipe) }
 
-# Load project's recipes
-load 'genesis/deploy'
+# Load <%= props.name %> recipes
+load 'deployment/deploy'

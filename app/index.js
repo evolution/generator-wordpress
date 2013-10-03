@@ -318,4 +318,16 @@ WordpressGenerator.prototype.fixPermissions = function() {
   fs.chmodSync(path.join(this.env.cwd, 'bin', 'provision'), '744');
 };
 
+WordpressGenerator.prototype.setupDeployment = function() {
+  this.log.info('Creating deployment scripts...');
+
+  this.mkdir(path.join(this.env.cwd, 'deployment'));
+  this.mkdir(path.join(this.env.cwd, 'deployment', 'deploy'));
+
+  this.template('deployment/deploy.rb', 'deployment/deploy.rb');
+  this.template('deployment/deploy/local.rb', 'deployment/deploy/local.rb');
+  this.template('deployment/deploy/staging.rb', 'deployment/deploy/staging.rb');
+  this.template('deployment/deploy/production.rb', 'deployment/deploy/production.rb');
+};
+
 module.exports = WordpressGenerator;
