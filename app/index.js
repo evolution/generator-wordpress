@@ -234,6 +234,12 @@ WordpressGenerator.prototype.ready = function() {
 WordpressGenerator.prototype.writeProjectFiles = function() {
   this.log.info('Writing project files...');
 
+  try {
+    this.readmeFile = this.readFileAsString(path.join(this.env.cwd, 'README.md'));
+  } catch(e) {
+    this.readmeFile = '';
+  }
+
   this.template('.gitignore',   '.gitignore');
   this.template('bower.json',   'bower.json');
   this.template('Capfile',      'Capfile');
@@ -258,6 +264,12 @@ WordpressGenerator.prototype.writeWordPress = function() {
 
 WordpressGenerator.prototype.writeWeb = function() {
   this.log.info('Writing ' + chalk.yellow(this.props.web) + ' files...');
+
+  try {
+    this.htaccessFile = this.readFileAsString(path.join(this.env.cwd, this.props.web, '.htaccess'));
+  } catch(e) {
+    this.htaccessFile = '';
+  }
 
   this.template('web/.htaccess',      path.join(this.props.web, '.htaccess'));
   this.template('web/no_robots.txt',  path.join(this.props.web, 'no_robots.txt'));
