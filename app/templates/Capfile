@@ -3,8 +3,8 @@ require 'rubygems'
 # Load Capistrano
 load 'deploy'
 
-# Load Genesis WordPress' recipes
-Dir['bower_components/genesis-wordpress/deployment/*.rb'].each { |recipe| load(recipe) }
+# Load Genesis WordPress' recipe
+load 'bower_components/genesis-wordpress/deployment/deploy.rb'
 
 # Load <%= props.name %> recipes
 load 'deployment/deploy'
