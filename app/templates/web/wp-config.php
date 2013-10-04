@@ -17,8 +17,10 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
 
   // Replace salts
   .replace(/define\('AUTH_KEY'[\s\S]+'put your unique phrase here'\);/, props.salts)
-%>
 
+  // Limit to 5 post revisions
+  .replace("/* That's all,", "define('WP_POST_REVISIONS', 5);\n\n/*That's all,")
+%>
 if (Genesis::isDebug()) {
   Genesis::rewriteUrls();
 }
