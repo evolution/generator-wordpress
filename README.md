@@ -28,6 +28,7 @@ $ npm install -g generator-genesis-wordpress
 
 ## Changelog
 
+- v0.1.1 – Add `.npmignore`
 - v0.1.0 – Initial release
 
 
