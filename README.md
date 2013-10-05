@@ -28,6 +28,7 @@ $ npm install -g generator-genesis-wordpress
 
 ## Changelog
 
+- v0.1.3 – Screw it. Reverted and just renamed any `.`-prefixed file
 - v0.1.1 – Add *another* `.npmignore` (isaacs/npm#1862)
 - v0.1.1 – Add `.npmignore`
 - v0.1.0 – Initial release
