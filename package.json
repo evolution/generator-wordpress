@@ -1,5 +1,5 @@
 {
-  "name": "generator-wordpress",
+  "name": "generator-genesis-wordpress",
   "version": "0.1.0",
   "description": "Yeoman generator for Genesis WordPress",
   "keywords": [
