@@ -307,7 +307,7 @@ WordpressGenerator.prototype.setupProvisioning = function() {
   this.template('provisioning/local', 'provisioning/local');
   this.template('provisioning/staging', 'provisioning/staging');
   this.template('provisioning/production', 'provisioning/production');
-  this.template('provisioning/playbook.yml', 'provisioning/playbook.yml');
+  this.template('provisioning/provision.yml', 'provisioning/provision.yml');
 
   this.mkdir(path.join(this.env.cwd, 'provisioning', 'group_vars'));
   this.template('provisioning/group_vars/webservers', 'provisioning/group_vars/webservers');

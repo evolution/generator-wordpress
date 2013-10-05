@@ -1,6 +1,6 @@
 ---
 - hosts:              webservers
-  include:            ../bower_components/genesis-wordpress/provisioning/playbook.yml
+  include:            ../bower_components/genesis-wordpress/provisioning/provision.yml
 
 - hosts:              webservers
   gather_facts:       no
