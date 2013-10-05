@@ -330,6 +330,7 @@ WordpressGenerator.prototype.createSshKeys = function() {
 
 WordpressGenerator.prototype.fixPermissions = function() {
   fs.chmodSync(path.join(this.env.cwd, 'bin', 'provision'), '744');
+  fs.chmodSync(path.join(this.env.cwd, 'provisioning', 'files', 'ssh', 'id_rsa'), '600');
 };
 
 WordpressGenerator.prototype.setupDeployment = function() {
