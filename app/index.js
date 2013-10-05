@@ -240,7 +240,7 @@ WordpressGenerator.prototype.writeProjectFiles = function() {
     this.readmeFile = '';
   }
 
-  this.template('.gitignore',   '.gitignore');
+  this.template('gitignore',   '.gitignore');
   this.template('bower.json',   'bower.json');
   this.template('Capfile',      'Capfile');
   this.template('editorconfig', '.editorconfig');
@@ -271,7 +271,7 @@ WordpressGenerator.prototype.writeWeb = function() {
     this.htaccessFile = '';
   }
 
-  this.template('web/.htaccess',      path.join(this.props.web, '.htaccess'));
+  this.template('web/htaccess',      path.join(this.props.web, '.htaccess'));
   this.template('web/no_robots.txt',  path.join(this.props.web, 'no_robots.txt'));
   this.template('web/robots.txt',     path.join(this.props.web, 'robots.txt'));
 };
