@@ -18,8 +18,10 @@ $ npm install -g yo
 $ npm install -g generator-genesis-wordpress
 ```
 
+*If you get EMFILE issues, try running: `ulimit -n 4096`*
 
-## Documentation
+
+## Getting Started
 
 **The full documentation can be found with [Genesis WordPress][1].**
 
