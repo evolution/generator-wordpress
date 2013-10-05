@@ -1,0 +1,28 @@
+{
+  "name": "generator-genesis-wordpress",
+  "version": "0.1.0",
+  "homepage": "https://github.com/genesis/generator-wordpress",
+  "authors": [
+    "Eric Clemmons <eric@smarterspam.com>"
+  ],
+  "description": "Yeoman generator for Genesis WordPress",
+  "main": "app/index.js",
+  "keywords": [
+    "vagrant",
+    "wordpress",
+    "yeoman",
+    "generator",
+    "genesis",
+    "deploy",
+    "cap",
+    "capistrano"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
