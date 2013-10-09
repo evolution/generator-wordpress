@@ -13,7 +13,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
   .replace('localhost',           props.DB_HOST)
 
   // Replace WP_DEBUG
-  .replace(/define\('WP_DEBUG'.+\);/, "define('WP_DEBUG', Genesis::isDebug());")
+  .replace(/define\('WP_DEBUG'.+\);/, "define('WP_DEBUG', WP_ENV === 'local');")
 
   // Replace salts
   .replace(/define\('AUTH_KEY'[\s\S]+'put your unique phrase here'\);/, props.salts)
@@ -21,6 +21,6 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
   // Limit to 5 post revisions
   .replace("/* That's all,", "define('WP_POST_REVISIONS', 5);\n\n/*That's all,")
 %>
-if (Genesis::isDebug()) {
+if (WP_ENV !== 'www') {
   Genesis::rewriteUrls();
 }
