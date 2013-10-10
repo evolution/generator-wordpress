@@ -30,6 +30,7 @@ Next, see the documentation for [Genesis WordPress][1].**
 
 ## Changelog
 
+- v0.2.0 – use [Genesis WordPress][1]#`0.2.*`
 - v0.1.7 – Add `old.rb` template
 - v0.1.6 – Use `WP_ENV` instead of `Genesis::isDebug()`
 - v0.1.5 – Use [Genesis WordPress][1]#`0.1.*`
