@@ -89,7 +89,7 @@ WordpressGenerator.prototype.promptForGenesis = function() {
     type:     'text',
     name:     'genesis',
     message:  'Genesis library version',
-    default:  '~0.1.*'
+    default:  '~0.2.*'
   });
 };
 
