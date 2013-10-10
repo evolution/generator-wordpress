@@ -340,6 +340,7 @@ WordpressGenerator.prototype.setupDeployment = function() {
   this.mkdir(path.join(this.env.cwd, 'deployment', 'deploy'));
 
   this.template('deployment/deploy.rb', 'deployment/deploy.rb');
+  this.template('deployment/stages/old.rb', 'deployment/stages/old.rb');
   this.template('deployment/stages/local.rb', 'deployment/stages/local.rb');
   this.template('deployment/stages/staging.rb', 'deployment/stages/staging.rb');
   this.template('deployment/stages/production.rb', 'deployment/stages/production.rb');
