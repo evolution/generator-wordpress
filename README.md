@@ -30,6 +30,7 @@ Next, see the documentation for [Genesis WordPress][1].**
 
 ## Changelog
 
+- v0.1.7 – Add `old.rb` template
 - v0.1.6 – Use `WP_ENV` instead of `Genesis::isDebug()`
 - v0.1.5 – Use [Genesis WordPress][1]#`0.1.*`
 - v0.1.4 – Use existing `deploy_to` path on staging
