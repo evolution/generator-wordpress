@@ -4,10 +4,12 @@
 
 ## Dependencies
 
-First install [NodeJS][3], then [Yeoman][2] & [Bower][4]:
+First install [NodeJS][3] **v0.10**, then [Yeoman][2] **v1** & [Bower][4] **v1.2.**:
 
     $ npm install -g yo bower
 
+
+*(You can check your versions by running `node --version`, `npm --version`, etc.)*
 
 ## Installation
 
@@ -18,6 +20,8 @@ Install [Genesis WordPress Generator][1]:
 *If you get EMFILE issues, try running: `ulimit -n 4096`*
 
 ## Getting Started
+
+**If you haven't done so already, [create & push your project to Github][5].**
 
 Run the [Genesis WordPress Generator][1]:
 
@@ -49,3 +53,4 @@ Next, see the documentation for [Genesis WordPress][1].**
 [2]: http://yeoman.io/
 [3]: http://nodejs.org/
 [4]: http://bower.io/
+[5]: https://help.github.com/articles/create-a-repo
