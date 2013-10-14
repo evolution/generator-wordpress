@@ -4,7 +4,6 @@ var util    = require('util');
 var path    = require('path');
 var yeoman  = require('yeoman-generator');
 var latest  = require('github-latest');
-var wrench  = require('wrench');
 var async   = require('async');
 var chalk   = require('chalk');
 var crypto  = require('crypto');
@@ -256,7 +255,7 @@ WordpressGenerator.prototype.writeWordPress = function() {
   this.remote('wordpress', 'wordpress', this.props.wordpress, function(err, remote) {
     this.log.info('Writing WordPress to ' + chalk.yellow(this.props.web));
 
-    wrench.copyDirSyncRecursive(remote.cachePath, this.props.web);
+    remote.directory(remote.cachePath, this.props.web);
 
     done();
   }.bind(this));

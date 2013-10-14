@@ -24,7 +24,6 @@
     "yeoman-generator": "~0.13.0",
     "github-latest": "~0.1.2",
     "async": "~0.2.9",
-    "wrench": "~1.5.1",
     "chalk": "~0.2.1",
     "ssh-keygen": "~0.2.1",
     "request": "~2.27.0"
