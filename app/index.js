@@ -9,7 +9,7 @@ var chalk   = require('chalk');
 var crypto  = require('crypto');
 var request = require('request');
 var keygen  = require('ssh-keygen');
-var fs      = require('fs');
+var fs      = require('fs-extra');
 
 
 var WordpressGenerator = function(args, options, config) {
@@ -255,9 +255,13 @@ WordpressGenerator.prototype.writeWordPress = function() {
   this.remote('wordpress', 'wordpress', this.props.wordpress, function(err, remote) {
     this.log.info('Writing WordPress to ' + chalk.yellow(this.props.web));
 
-    remote.directory(remote.cachePath, this.props.web);
+    fs.copy(remote.cachePath, this.props.web, function(err) {
+      if (err) {
+        return console.error(err);
+      }
 
-    done();
+      done();
+    });
   }.bind(this));
 };
 

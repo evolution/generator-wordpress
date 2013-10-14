@@ -26,7 +26,8 @@
     "async": "~0.2.9",
     "chalk": "~0.2.1",
     "ssh-keygen": "~0.2.1",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "fs-extra": "~0.8.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
