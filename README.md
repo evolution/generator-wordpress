@@ -34,6 +34,7 @@ Next, see the documentation for [Genesis WordPress][1].**
 
 ## Changelog
 
+- v0.2.3 – Fix bug with copying `id_rsa` and `id_rsa.pub`
 - v0.2.2 – Use `fs-extra` to fix recursive copy issue
 - v0.2.1 – Remove Wrench because of bugs with overwriting existing folders
 - v0.2.0 – use [Genesis WordPress][1]#`0.2.*`
