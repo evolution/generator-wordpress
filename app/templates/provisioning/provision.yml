@@ -16,9 +16,9 @@
         - files/ssh/id_rsa.pub
 
     - name:           Copy deploy user's id_rsa
-      copy:           src=files/ssh/id_rsa.pub dest=/home/deploy/.ssh/id_rsa mode=0600
+      copy:           src=files/ssh/id_rsa dest=/home/deploy/.ssh/id_rsa mode=0600
       sudo:           yes
 
     - name:           Copy deploy user's id_rsa.pub
-      copy:           src=files/ssh/id_rsa.pub dest=/home/deploy/.ssh/id_rsa mode=0600
+      copy:           src=files/ssh/id_rsa.pub dest=/home/deploy/.ssh/id_rsa.pub mode=0600
       sudo:           yes
