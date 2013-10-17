@@ -262,7 +262,7 @@ WordpressGenerator.prototype.writeWordPress = function() {
 
       done();
     });
-  }.bind(this));
+  }.bind(this), true);
 };
 
 WordpressGenerator.prototype.writeWeb = function() {
