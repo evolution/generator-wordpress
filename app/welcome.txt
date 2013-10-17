@@ -1,17 +1,9 @@
-                                                   ,,
-  .g8"""bgd                                        db
-.dP'     `M
-dM'       `   .gP"Ya `7MMpMMMb.  .gP"Ya  ,pP"Ybd `7MM  ,pP"Ybd
-MM           ,M'   Yb  MM    MM ,M'   Yb 8I   `"   MM  8I   `"
-MM.    `7MMF'8M""""""  MM    MM 8M"""""" `YMMMa.   MM  `YMMMa.
-`Mb.     MM  YM.    ,  MM    MM YM.    , L.   I8   MM  L.   I8
-  `"bmmmdPY   `Mbmmd'.JMML  JMML.`Mbmmd' M9mmmP' .JMML.M9mmmP'
 
-                                          ,,
-`7MMF'     A     `7MF'                  `7MM  `7MM"""Mq.
-  `MA     ,MA     ,V                      MM    MM   `MM.
-   VM:   ,VVM:   ,V ,pW"Wq.`7Mb,od8  ,M""bMM    MM   ,M9 `7Mb,od8 .gP"Ya  ,pP"Ybd ,pP"Ybd
-    MM.  M' MM.  M'6W'   `Wb MM' "',AP    MM    MMmmdM9    MM' "',M'   Yb 8I   `" 8I   `"
-    `MM A'  `MM A' 8M     M8 MM    8MI    MM    MM         MM    8M"""""" `YMMMa. `YMMMa.
-     :MM;    :MM;  YA.   ,A9 MM    `Mb    MM    MM         MM    YM.    , L.   I8 L.   I8
-      VF      VF    `Ybmd9'.JMML.   `Wbmd"MML..JMML.     .JMML.   `Mbmmd' M9mmmP' M9mmmP'
+  ,---.                    o
+  |  _.,---.,---.,---.,---..,---.
+  |   ||---'|   ||---'`---.|`---.
+  `---'`---'`   '`---'`---'``---'
+  . . .              |,---.
+  | | |,---.,---.,---||---',---.,---.,---.,---.
+  | | ||   ||    |   ||    |    |---'`---.`---.
+  `-'-'`---'`    `---'`    `    `---'`---'`---'
