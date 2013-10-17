@@ -5,9 +5,12 @@ set :stage,         "old"
 set :branch,        "master"
 
 set :stage,         "old"
-set :user,          "myuser"
-set :password,      "mypassword"
-set :ssh_options,   {}
+set :user,          "myuser"        # SSH user
+set :password,      "mypassword"    # SSH password
+set :ssh_options,   {}              # Ignore "deploy" private key authentication
 
-set :deploy_to,     "/path/to/mysite/genesis"
-set :remote_web,    "/path/to/mysite/public_html"
+# Many shared hosts only allow access to the user's home directory
+set :deploy_to,     "/home/#{user}/genesis"
+
+# Where the "web" folder is located on the server
+set :remote_web,    "/home/#{user}/public_html"
