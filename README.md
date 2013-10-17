@@ -34,6 +34,7 @@ Next, see the documentation for [Genesis WordPress][1].**
 
 ## Changelog
 
+- v0.2.7 – *Always* download requested WordPress version
 - v0.2.6 – Install `pycurl`
 - v0.2.5 – Install both `python-software-properties` and `software-properties-common`
 - v0.2.4 – Fix owner (deploy) for id_rsa & id_rsa.pub
