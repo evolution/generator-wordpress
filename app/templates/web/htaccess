@@ -9,7 +9,7 @@
 
   # Prevent spidering of non-canonical URLs,
   # such as `[*.]staging.*` and `production.*`.
-  RewriteCond %{HTTP_HOST} !^(www|local)\.
+  RewriteCond %{HTTP_HOST} (^local|staging|^production)
   RewriteRule ^robots.txt$ no_robots.txt [L]
 </IfModule>
 # END Genesis WordPress
