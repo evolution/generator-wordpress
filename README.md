@@ -2,35 +2,9 @@
 
 > Yeoman generator for [Genesis WordPress][1].
 
-## Dependencies
+## Documentation
 
-First install [NodeJS][3] **v0.10**, then [Yeoman][2] **v1** & [Bower][4] **v1.2.**:
-
-    $ npm install -g yo bower
-
-
-*(You can check your versions by running `node --version`, `npm --version`, etc.)*
-
-## Installation
-
-Install [Genesis WordPress Generator][1]:
-
-    $ npm install generator-genesis-wordpress
-
-*If you get EMFILE issues, try running: `ulimit -n 4096`*
-
-## Getting Started
-
-**If you haven't done so already, [create & push your project to Github][5].**
-
-Run the [Genesis WordPress Generator][1]:
-
-    $ yo genesis-wordpress
-
-Follow the prompts, and you'll have a working WordPress install!
-
-Next, see the documentation for [Genesis WordPress][1].**
-
+**See [Genesis WordPress][1].**
 
 ## Changelog
 
