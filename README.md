@@ -34,6 +34,7 @@ Next, see the documentation for [Genesis WordPress][1].**
 
 ## Changelog
 
+- v1.0.0 – **Auto-updating** based on [Genesis WordPress](https://github.com/genesis/wordpress)!
 - v0.2.8 – Fix regex match when sending `no_robots.txt`
 - v0.2.7 – *Always* download requested WordPress version
 - v0.2.6 – Install `pycurl`
