@@ -45,11 +45,10 @@ WordpressGenerator.prototype.downloadLatest = function() {
 };
 
 WordpressGenerator.prototype.installLatest = function() {
-  var done = this.async();
+  var done  = this.async();
+  var cwd   = process.cwd();
 
   this.log.info('Installing dependencies...');
-
-  var cwd = process.cwd();
 
   process.chdir(this.cachePath);
 
@@ -61,11 +60,13 @@ WordpressGenerator.prototype.installLatest = function() {
 
 WordpressGenerator.prototype.runLatest = function() {
   var Genesis = require(this.cachePath);
-  var genesis = new Genesis(this.args, this.options, this.config);
+  var options = this.options;
+
+  options.resolved = require.resolve(this.cachePath);
 
   this.log.info('Running generator...');
 
-  genesis.run();
+  new Genesis(this.args, this.options, this.config).run();
 };
 
 module.exports = WordpressGenerator;
