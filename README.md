@@ -33,6 +33,7 @@ $ yo genesis-wordpress --genesis-version=v0.2.39
 
 ## Changelog
 
+- v1.0.3 – Add `genesis-path` and `genesis-version` options
 - v1.0.2 – Fix issue with `this.resolved` path in downloaded generator
 - v1.0.1 – Cleanup old files
 - v1.0.0 – **Auto-updating** based on [Genesis WordPress](https://github.com/genesis/wordpress)!
