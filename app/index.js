@@ -14,7 +14,13 @@ var WordpressGenerator = function(args, options, config) {
 
 util.inherits(WordpressGenerator, yeoman.generators.Base);
 
-WordpressGenerator.prototype.getTag = function() {
+WordpressGenerator.prototype.getGenesisVersion = function() {
+  if (this.options['genesis-version']) {
+    this.log.info('Defaulting Genesis version to ' + chalk.yellow(this.options['genesis-version']));
+
+    return false;
+  }
+
   var done = this.async();
 
   latest('genesis', 'wordpress', function(err, tag) {
@@ -22,26 +28,36 @@ WordpressGenerator.prototype.getTag = function() {
       throw err;
     }
 
-    this.tag = tag;
+    this.options['genesis-version'] = tag;
 
     done();
   }.bind(this));
 };
 
 WordpressGenerator.prototype.downloadLatest = function() {
+  if (this.options['genesis-path']) {
+    return false;
+  }
+
   var done = this.async();
 
-  this.log.info('Downloading Genesis WordPress (' + chalk.yellow(this.tag) + ')...');
+  this.log.info('Downloading Genesis WordPress (' + chalk.yellow(this.options['genesis-version']) + ')...');
 
-  this.remote('genesis', 'wordpress', this.tag, function(err, remote) {
+  this.remote('genesis', 'wordpress', this.options['genesis-version'], function(err, remote) {
     if (err) {
       throw err;
     }
 
-    this.cachePath = remote.cachePath;
+    this.options['genesis-path'] = remote.cachePath;
 
     done();
   }.bind(this));
+};
+
+WordpressGenerator.prototype.normalizeCachePath = function() {
+  this.options['genesis-path'] = path.normalize(this.options['genesis-path']);
+
+  this.log.info('Using Genesis WordPress at ' + chalk.yellow(this.options['genesis-path']) + '...');
 };
 
 WordpressGenerator.prototype.installLatest = function() {
@@ -50,19 +66,19 @@ WordpressGenerator.prototype.installLatest = function() {
 
   this.log.info('Installing dependencies...');
 
-  process.chdir(this.cachePath);
+  process.chdir(this.options['genesis-path']);
 
-  this.npmInstall(this.cachePath, ['--quiet'], function() {
+  this.npmInstall(this.options['genesis-path'], ['--quiet'], function() {
     process.chdir(cwd);
     done();
   });
 };
 
 WordpressGenerator.prototype.runLatest = function() {
-  var Genesis = require(this.cachePath);
+  var Genesis = require(this.options['genesis-path']);
   var options = this.options;
 
-  options.resolved = require.resolve(this.cachePath);
+  options.resolved = require.resolve(this.options['genesis-path']);
 
   this.log.info('Running generator...');
 

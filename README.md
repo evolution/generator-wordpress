@@ -2,9 +2,34 @@
 
 > Yeoman generator for [Genesis WordPress][1].
 
+
 ## Documentation
 
 **See [Genesis WordPress][1].**
+
+
+## Generator Options
+
+### `genesis-path`
+
+*Defaults to `~/.cache/yeoman/genesis/wordpress/{{ tag }}`*
+
+Location of local [Genesis WordPress][1] library to use generators from.
+This is useful when wanting to work on [Genesis WordPress][1]'s generators
+locally.
+
+```
+$ yo genesis-wordpress --genesis-path=~/Sites/genesis/wordpress
+```
+
+
+### `genesis-version`
+
+*Defaults to latest version of [Genesis WordPress][1]*
+
+```
+$ yo genesis-wordpress --genesis-version=v0.2.39
+```
 
 ## Changelog
 
