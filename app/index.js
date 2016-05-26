@@ -23,7 +23,7 @@ WordpressGenerator.prototype.getGenesisVersion = function() {
 
   var done = this.async();
 
-  latest('genesis', 'wordpress', function(err, tag) {
+  latest('evolution', 'genesis-wordpress', function(err, tag) {
     if (err) {
       throw err;
     }
